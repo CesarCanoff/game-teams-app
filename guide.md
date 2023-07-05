@@ -1,4 +1,4 @@
-### To use Path Mapping
+### Path Mapping
 
 Install babel-plugin-module-resolver
 ```bash
@@ -53,3 +53,21 @@ Configure tsconfig.json
   }
 }
 ```
+---
+---
+---
+
+### Styled Components
+
+Install styled-components
+```bash
+npm install styled-components
+```
+
+Install styled-components types
+```bash
+npm install --save-dev @types/styled-components @types/styled-components-react-native
+```
+---
+---
+---
