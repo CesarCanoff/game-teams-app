@@ -9,7 +9,7 @@ type Props = {
 
 export function Header({ showBackButton = false }: Props) {
   const navigation = useNavigation();
-  
+
   function handleGoBack() {
     navigation.navigate("Groups");
   }
