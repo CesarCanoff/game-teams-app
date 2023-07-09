@@ -49,7 +49,6 @@ export function NewGroup() {
 
         <Input
           placeholder="Nome da turma"
-          placeholderTextColor={theme.COLORS.GRAY_300}
           onChangeText={setGroup}
         />
 
