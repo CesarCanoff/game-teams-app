@@ -18,6 +18,7 @@ import { PlayerCard } from "@components/PlayerCard";
 
 import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
 import { Keyboard } from "react-native";
+import { PlayerRemoveByGroup } from "@storage/player/playerRemoveByGroup";
 
 type RouteParams = {
   GROUP_NAME: string;
@@ -73,6 +74,15 @@ export function Players() {
     }
   }
 
+  async function handlePlayerRemove(playerName: string) {
+    try {
+      await PlayerRemoveByGroup(playerName, GROUP_NAME);
+      fetchPlayersByTeam();
+    } catch (error) {
+      Alert.alert('Remover jogador', 'Não foi possível remover esse jogador');
+    }
+  }
+
   useEffect(() => {
     fetchPlayersByTeam();
   }, [team]);
@@ -97,8 +107,9 @@ export function Players() {
           returnKeyType="done"
         />
 
-        <ButtonIcon icon="add" />
+        <ButtonIcon icon="add" onHandle={handleAddPlayer} />
       </Form>
+
       <HeaderList>
         <FlatList
           horizontal
@@ -119,7 +130,7 @@ export function Players() {
         data={players}
         keyExtractor={item => item.name}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => <PlayerCard name={item.name} onRemove={() => { }} />}
+        renderItem={({ item }) => <PlayerCard name={item.name} onRemove={() => handlePlayerRemove(item.name)} />}
         ListEmptyComponent={() => <EmptyList message="Ainda não há pessoas nesse time!" />}
         contentContainerStyle={[{ paddingBottom: 100 }, players.length === 0 && { flex: 1 }]}
       />
