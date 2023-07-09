@@ -10,20 +10,29 @@ import { Input } from "@components/input";
 
 import { useTheme } from "styled-components/native";
 import { Container, Content, Icon } from "./styles";
+import { AppError } from "@utils/AppError";
+import { Alert } from "react-native";
 
 export function NewGroup() {
   const theme = useTheme();
-    
   const navigation = useNavigation();
 
   const [group, setGroup] = useState('');
 
   async function handleNew() {
     try {
+      if (group.trim().length === 0) {
+        return Alert.alert('Novo Grupo', 'Informe o nome da turma.')
+      }
+
       await groupCreate(group);
       navigation.navigate('Players', { GROUP_NAME: group })
     } catch (error) {
-      console.log(error);
+      if (error instanceof AppError) {
+        Alert.alert('Novo Grupo', error.message);
+      } else {
+        console.log(error);
+      }
     }
   }
 
